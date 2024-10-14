@@ -2,6 +2,7 @@ package com.aryan.book_network.book;
 
 import com.aryan.book_network.common.BaseEntity;
 import com.aryan.book_network.feedback.Feedback;
+import com.aryan.book_network.history.BookTransactionHistory;
 import com.aryan.book_network.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -37,5 +38,7 @@ public class Book extends BaseEntity {
     private User owner;
     @OneToMany(mappedBy = "book")
     private List<Feedback> feedbacks;
+    @OneToMany(mappedBy = "book")
+    private List<BookTransactionHistory> histories;
 
 }
