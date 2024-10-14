@@ -1,5 +1,6 @@
 package com.aryan.book_network.feedback;
 
+import com.aryan.book_network.book.Book;
 import com.aryan.book_network.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,4 +17,7 @@ import lombok.experimental.SuperBuilder;
 public class Feedback extends BaseEntity {
     private double note;
     private String comment;
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
 }

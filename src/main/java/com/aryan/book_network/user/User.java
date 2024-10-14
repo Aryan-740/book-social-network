@@ -1,5 +1,6 @@
 package com.aryan.book_network.user;
 
+import com.aryan.book_network.book.Book;
 import com.aryan.book_network.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -96,5 +97,6 @@ public class User implements UserDetails, Principal{
     public String fullname(){
         return firstname + " " + lastname;
     }
-
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
 }
