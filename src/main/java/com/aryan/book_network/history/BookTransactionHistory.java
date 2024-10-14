@@ -1,19 +1,20 @@
-package com.aryan.book_network.feedback;
+package com.aryan.book_network.history;
 
 import com.aryan.book_network.common.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+
 @Entity
 @Getter
 @Setter
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Feedback extends BaseEntity {
-    private double note;
-    private String comment;
+public class BookTransactionHistory extends BaseEntity {
+    private boolean returned;
+    private boolean returnApproved;
 }
