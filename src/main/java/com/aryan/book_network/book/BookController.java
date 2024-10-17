@@ -2,9 +2,7 @@ package com.aryan.book_network.book;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -41,4 +39,12 @@ public class BookController {
         return ResponseEntity.ok(service.findAllBooks(page,size,connectedUser));
     }
 
+    @GetMapping("/owner")
+    public ResponseEntity<PageResponse<BookResponse>> findAllBooksByOwner(
+            @RequestParam(name="page",defaultValue ="0",required = false) int page,
+            @RequestParam(name="size",defaultValue ="10",required = false) int size,
+            Authentication connectedUser
+    ){
+        return ResponseEntity.ok(service.findAllBooksByOwner(page,size,connectedUser));
+    }
 }

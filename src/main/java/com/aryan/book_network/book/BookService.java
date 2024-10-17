@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.aryan.book_network.book.BookSpecification.*;
+
 @Service
 @RequiredArgsConstructor
 public class BookService {
@@ -35,6 +37,25 @@ public class BookService {
         User user = ((User) connectedUser.getPrincipal());
         Pageable pageable = PageRequest.of(page,size, Sort.by("createdDate").descending());
         Page<Book> books = bookRepository.findAllDisplayableBooks(pageable,user.getId());
+        List<BookResponse> bookResponse = books.stream()
+                .map(bookMapper::toBookResponse)
+                .collect(Collectors.toList());
+
+        return new PageResponse<>(
+                bookResponse,
+                books.getNumber(),
+                books.getTotalPages(),
+                books.getTotalElements(),
+                books.getSize(),
+                books.isFirst(),
+                books.isLast()
+        );
+    }
+
+    public PageResponse<BookResponse> findAllBooksByOwner(int page, int size, Authentication connectedUser) {
+        User user = ((User) connectedUser.getPrincipal());
+        Pageable pageable = PageRequest.of(page,size, Sort.by("createdDate").descending());
+        Page<Book> books = bookRepository.findAll(withOwnerId(user.getId()), pageable);
         List<BookResponse> bookResponse = books.stream()
                 .map(bookMapper::toBookResponse)
                 .collect(Collectors.toList());
